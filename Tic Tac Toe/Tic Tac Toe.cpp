@@ -93,16 +93,19 @@ int main() {
     print("Welcome to Tic Tac Toe!");
 
     printBox(Box);
-
+    bool DidA_Mistake = false;
     string lastInput = "o";
     while (round < 9) {
-        if (lastInput == "o") {
-            lastInput = "x";
-        }
-        else {
-            lastInput = "o";
+        if (!DidA_Mistake) {
+            if (lastInput == "o") {
+                lastInput = "x";
+            }
+            else {
+                lastInput = "o";
+            }
         }
         print("Turn of " + lastInput);
+        DidA_Mistake = false;
         int row = RangeIntInput(1, 3, "Row: ");
         row--; // so this can be used as an index
         int col = RangeIntInput(1, 3, "Col: ");
@@ -120,11 +123,12 @@ int main() {
             system("cls");
         }
         else {
+            DidA_Mistake = true;
             print("That cell is already being used.");
         }
         printBox(Box);
     }
-    if (DidWin) {
+    if (!DidWin) {
         print("This match is declared as a draw.");
     }
 
