@@ -58,12 +58,12 @@ void printBox(string Box[3][3]) {
 }
 
 bool checkForWinner(string Box[3][3], string lastInput) {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         if (Box[i][0] == lastInput && Box[i][1] == lastInput && Box[i][2] == lastInput) { // this checks if there is a 3 x or o in a row
             return true;
         }
     }
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         if (Box[0][i] == lastInput && Box[1][i] == lastInput && Box[2][i] == lastInput) { // this checks if there is a 3 x or o in a col
             return true;
         }
