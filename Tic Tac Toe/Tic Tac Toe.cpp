@@ -4,22 +4,22 @@
 
 using namespace std;
 
-void print(string message) {
+void print(string message) { // this print with a newline
     cout << message << endl;
 }
 
-void printNoNewLine(string message) {
+void printNoNewLine(string message) { // this function print with out a new line
     cout << message;
 }
 
-string input(string message) {
+string input(string message) { // this function takes an input an returns it
     printNoNewLine(message);
     string thisInput;
     getline(cin, thisInput);
     return thisInput;
 }
 
-int GenRandomInt(int MIN, int MAX) {
+int GenRandomInt(int MIN, int MAX) { // this function returns a random number from a range of min and max
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<int> dis(MIN, MAX);
@@ -27,7 +27,7 @@ int GenRandomInt(int MIN, int MAX) {
 }
 
 
-int RangeIntInput(int Min, int Max, string message) {
+int RangeIntInput(int Min, int Max, string message) { // this input function will only return number when it meets the requirement
     int thisIntInput;
 
     while (true) {
@@ -68,12 +68,12 @@ bool checkForWinner(string Box[3][3], string lastInput) {
             return true;
         }
     }
-    if (Box[0][0] == lastInput && Box[1][1] == lastInput && Box[2][2] == lastInput) { 
+    if (Box[0][0] == lastInput && Box[1][1] == lastInput && Box[2][2] == lastInput) { // it check if there is 3 x or o in this way "\" 
         return true;
     }
 
 
-    if (Box[2][0] == lastInput && Box[1][1] == lastInput && Box[0][2] == lastInput) {
+    if (Box[2][0] == lastInput && Box[1][1] == lastInput && Box[0][2] == lastInput) {// it check if there is 3 x or o in this way "/" 
         return true;
     }
 
@@ -88,40 +88,44 @@ static string Box[3][3] = {
 
 int main() {
     int round = 0;
-
-
+    bool DidWin = false;
  
     print("Welcome to Tic Tac Toe!");
 
     printBox(Box);
 
     string lastInput = "o";
-    while (round < 8) {
+    while (round < 9) {
         if (lastInput == "o") {
             lastInput = "x";
         }
         else {
             lastInput = "o";
         }
-        print(lastInput + "s turn.");
+        print("Turn of " + lastInput);
         int row = RangeIntInput(1, 3, "Row: ");
         row--; // so this can be used as an index
-        int col = RangeIntInput(1, 3, "col: ");
+        int col = RangeIntInput(1, 3, "Col: ");
         col--;
         if (Box[row][col] == " ") {
 
             Box[row][col] = lastInput;
             bool threeMatch =  checkForWinner(Box, lastInput);
             if (threeMatch) {
+                DidWin = true;
                 print(lastInput + " has won!!!!");
                 break;
             }
             round++;
+            system("cls");
         }
         else {
             print("That cell is already being used.");
         }
         printBox(Box);
+    }
+    if (DidWin) {
+        print("This match is declared as a draw.");
     }
 
     return 0;
